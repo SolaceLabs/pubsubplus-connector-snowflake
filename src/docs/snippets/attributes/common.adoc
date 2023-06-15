@@ -1,0 +1,19 @@
+ifndef::solace-snowflake-connector-common-attrs-isset[]
+
+// Import common attributes
+ifndef::connector-framework-docs-dir[]
+:connector-framework-docs-dir: ../../../../target/shared-remote-resources/connector-framework-docs-resources
+endif::connector-framework-docs-dir[]
+include::{connector-framework-docs-dir}/attributes/common.adoc[]
+
+// Override common attributes
+:vendor-system-name: SolaceSnowflakeConnector
+:vendor-binder-id: solace-snowflake
+
+// Custom common attributes
+
+
+// Ensure defaults are only set once
+:solace-snowflake-connector-common-attrs-isset:
+
+endif::solace-snowflake-connector-common-attrs-isset[]

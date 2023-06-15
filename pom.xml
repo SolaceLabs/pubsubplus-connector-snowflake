@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.solace.connector.core</groupId>
+		<artifactId>pubsubplus-connector-build-parent</artifactId>
+		<version>1.1.1</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.solacecoe.connectors</groupId>
+	<artifactId>pubsubplus-connector-snowflake</artifactId>
+	<version>${revision}${sha1}${changelist}</version>
+
+	<name>pubsubplus-connector-snowflake</name>
+	<description>Solace Snowflake Connector</description>
+	<url>https://github.com/SolaceTechCOE/pubsubplus-connector-snowflake.git</url>
+	<inceptionYear>2023</inceptionYear>
+
+	<properties>
+		<!--
+		===================================
+		Project Versioning Properties
+		===================================
+		-->
+		<revision>1.0.0</revision>
+		<sha1/> <!-- Doesn't actually need to be a sha1, this is just another version modifier variable -->
+		<changelist>-SNAPSHOT</changelist>
+		<next-revision>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}</next-revision>
+
+		<!--
+		=========================
+		Compiler Properties
+		=========================
+		-->
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<container.image.name>solace-pubsub-connector-snowflake</container.image.name>
+
+		<!--
+		============================
+		Shared Resource Properties
+		============================
+		 -->
+		<!-- Shared Resources: Licensing -->
+		<!-- Disabling Solace License resources and enabling Solace Community V1.0 resources -->
+		<shared-remote-resources.process.license-aggregate.solace-community-v1.skip>false</shared-remote-resources.process.license-aggregate.solace-community-v1.skip>
+		<shared-remote-resources.process.license-aggregate.solace.skip>true</shared-remote-resources.process.license-aggregate.solace.skip>
+	</properties>
+
+	<organization>
+		<url>https://solace.com</url>
+		<name>Solace Corporation</name>
+	</organization>
+
+	<scm>
+		<url>https://github.com/SolaceTechCOE/pubsubplus-connector-snowflake.git</url>
+		<connection>scm:git:git://github.com/SolaceTechCOE/pubsubplus-connector-snowflake.git</connection>
+		<developerConnection>scm:git:git@github.com:SolaceTechCOE/pubsubplus-connector-snowflake.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<email>info@solace.com</email>
+			<name>Solace</name>
+			<organization>Solace Corporation</organization>
+			<organizationUrl>https://solace.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Solace Community License v.1.0</name>
+			<url>https://solace.com/license-community/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<!--
+		====================================================
+		UPGRADING VULNERABLE/CONFLICTING DEPENDENCIES
+		====================================================
+
+		When upgrading dependencies to fix security vulnerabilities or resolve maven-enforcer-plugin conflicts,
+		specify them here in <dependencyManagement> instead of directly in the POM's root <dependencies>.
+
+		More often than not, these upgrades are for transitive dependencies, not direct dependencies of this project.
+		In other words, they are not hard requirements for this project.
+
+		So if you define them here, they will not create hard dependencies to those libraries.
+		All Maven would do is use the version defined here IF they are used.
+		-->
+		<dependencies>
+			<dependency> <!-- [SPRING-BUGFIX] CVE-2022-25857 - Remove when fixed by Spring-Boot -->
+				<groupId>org.yaml</groupId>
+				<artifactId>snakeyaml</artifactId>
+				<version>1.33</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solace.spring.cloud</groupId>
+			<artifactId>spring-cloud-starter-stream-solace</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solace.connector.core</groupId>
+			<artifactId>pubsubplus-connector-framework</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-jmx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-test-support</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solacecoe.spring.cloud.stream.binders</groupId>
+			<artifactId>spring-cloud-stream-binder-snowflake-jdbc</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solacecoe.spring.cloud.stream.binders</groupId>
+			<artifactId>spring-cloud-stream-binder-snowflake-stream</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>parse-version</id>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-enforcer-plugin</artifactId>-->
+<!--			</plugin>-->
+
+			<!-- Generate Build Artifacts -->
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<configuration>
+					<attributes>
+						<!-- Add additional document attributes here (optional) -->
+					</attributes>
+				</configuration>
+			</plugin>
+
+			<!-- Version Management -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Code Quality Assurance -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+			</plugin>
+			                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+
+                        <!--
+						Workaround for https://issues.apache.org/jira/browse/MJAVADOC-329.
+						Creates an empty javadoc jar for projects without *.java files to satisfy Sonatype requirements.
+						-->
+                        <execution>
+                            <id>generate-empty-javadoc-dir</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <mkdir dir="${project.build.directory}/apidocs"/>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                    <quiet>false</quiet>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>**/*</sourceFileExclude> <!-- to generate an empty javadoc jar -->
+                    </sourceFileExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>empty-javadoc-jar</id>
+						<phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <!-- Exclude all sources except the README -->
+                    <includes>
+                        <include>README.md</include>
+                    </includes>
+                   <excludeResources>true</excludeResources>
+                   <forceCreation>true</forceCreation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<!-- <repository>
+			<id>sonatype-nexus-staging</id>
+			<name>oss.sonatype.org Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository> -->
+		<repository>
+			<id>releases</id>
+			<name>internal Staging Repository</name>
+			<url>http://apps-jenkins:9090/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>oss.sonatype.org github Release Repository Snapshot Repository</name>
+			<url>http://apps-jenkins:9090/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+  	</distributionManagement>
+</project>

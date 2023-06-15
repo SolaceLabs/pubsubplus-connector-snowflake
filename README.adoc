@@ -1,0 +1,27 @@
+= Solace PubSubPlus Connector for Snowflake 
+:doctype: book
+:toc: preamble
+:toclevels: 3
+:icons: font
+
+// Github-Specific Settings
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+A Solace Self-contained Connector for connecting PubSub+ with Snowflake allowing ingest of event mesh data into your Snowflake tables.
+
+To get the docs for this particular connector, build the connector and see `target/generated-docs`. This will build the User Guide documents.
+
+If you aren't ready to build the project, information is also available in the https://github.com/SolaceLabs/pubsubplus-connector-snowflake/blob/main/SolacePubsubConnectorForSnowflake.md[SolacePubsubConnectorForSnowflake.md]
+
+== Building
+----
+mvn package antrun:run@generate-license-disclosure-stub assembly:single jib:buildTar
+----
+== License
+This connector is licensed under the https://solace.com/license-community/[Solace Community License]

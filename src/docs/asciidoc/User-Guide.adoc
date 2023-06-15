@@ -1,0 +1,117 @@
+= {connector-name}: User Guide
+:doctype: book
+:toc: preamble
+:toclevels: 3
+:icons: font
+:imagesdir: {docdir}/../images
+:connector-framework-docs-dir: {docdir}/../../../target/shared-remote-resources/connector-framework-docs-resources
+// Import common attributes
+include::{docdir}/../snippets/attributes/common.adoc[]
+// Custom attributes
+:overview: <product-overview>
+
+// Github-Specific Settings
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+[preface]
+== Preface
+
+{overview}
+
+== Getting Started
+
+Assuming you're using the default `application.yml` within this package, following one of the below quick start guides will result in a connector that will connect to the PubSub+ broker and {vendor-system-name} using default credentials, with 2 workflows enabled, workflow 0 and workflow 1. Where:
+
+* Workflow 0 is consuming messages from the Solace PubSub+ queue, `Solace/Queue/0`, and publishing them to the {vendor-system-name} producer destination, `producer-destination`.
+* Workflow 1 is consuming messages from the {vendor-system-name} consumer destination, `consumer-destination`, and publishing them to the Solace PubSub+ topic, `Solace/Topic/1`.
+
+A workflow is the configuration of a flow of messages from a source to a target. The connector supports up to 20 concurrent workflows per instance.
+
+NOTE: The connector will not provision queues which do not exist.
+
+=== Prerequisites
+
+* https://solace.com/products/event-broker/[Solace PubSub+ Event Broker]
+* {vendor-system-name}
+
+=== Quick Start common steps
+
+These are the steps that are required to run all quick-start examples:
+
+ifdef::connector-requires-external-libs[]
+. Create a directory called `libs` in the same directory as the jar file.
+.. For more info about this directory, see <<Adding External Libraries>>.
+.. This directory may already exist
+. Download the jars for the {vendor-system-name} and all its dependencies to the `libs` directory:
+endif::[]
+. Update the provided `samples/config/application.yml` with the values for your deployment.
+
+include::{connector-framework-docs-dir}/sections/general/quick-start/cli.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/quick-start/start-script.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/quick-start/docker-compose.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/workflow/enable.adoc[leveloffset=+1]
+
+== Configuring Connection Details
+
+include::{connector-framework-docs-dir}/sections/general/cxn-details/solace-pubsub.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/cxn-details/multi-binder.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/general/feature/function/user-configured-header-transforms.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/general/feature/function/user-configured-payload-transforms.adoc[leveloffset=+1]
+
+== Message Headers
+
+Solace and {vendor-binder-id} headers can be created or manipulated using the <<User-configured Header Transforms>> feature described above.
+
+include::{connector-framework-docs-dir}/sections/general/feature/message-headers/solace-binder.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/feature/message-headers/reserved-headers.adoc[leveloffset=+2]
+
+== Management and Monitoring Connector
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/monitoring-overview.adoc[leveloffset=+2]
+
+== Health
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/health/intro.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/feature/global/health/workflow.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/feature/global/health/solace-binder.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/leader-election.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/workflow/management.adoc[leveloffset=+1]
+
+== Metrics
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/metrics/intro.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/feature/global/metrics/connector-meters.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/feature/global/metrics/add-monitoring-system.adoc[leveloffset=+2]
+
+== Security
+
+include::{connector-framework-docs-dir}/sections/general/feature/global/security/endpoint.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/general/etc/consume-object-messages.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/general/etc/external-libs.adoc[leveloffset=+1]
+
+== Configuration
+
+include::{connector-framework-docs-dir}/sections/general/configuration/how-to.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/configuration/options/external.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/configuration/options/connector.adoc[leveloffset=+2]
+include::{connector-framework-docs-dir}/sections/general/configuration/options/workflow.adoc[leveloffset=+2]
+include::{docdir}/../sections/general/configuration/sink/snowflake-sink-properties.adoc[leveloffset=+2]
+
+== License
+
+This project is licensed under the Apache License, Version 2.0. - See the `LICENSE` file for details.
+
+include::{connector-framework-docs-dir}/sections/general/etc/support-contact.adoc[leveloffset=+1]

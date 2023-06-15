@@ -1,0 +1,57 @@
+= {connector-name}
+:doctype: book
+:toc: preamble
+:toclevels: 3
+:icons: font
+:imagesdir: {docdir}/../images
+:connector-framework-docs-dir: {docdir}/../../../target/shared-remote-resources/connector-framework-docs-resources
+// Import common attributes
+include::{docdir}/../snippets/attributes/common.adoc[]
+// Custom attributes
+:overview: <product-overview>
+
+// Github-Specific Settings
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+[preface]
+== Preface
+
+{overview}
+
+== Getting Started
+
+{connector-release-notes-url}[Release Notes]
+
+=== Prerequisites
+
+* https://www.docker.com/[Docker] or https://podman.io/[Podman]
+* https://solace.com/products/event-broker/[PubSub+ Event Broker]
+* {vendor-system-name}
+
+=== Usage
+
+// Add minimal usage steps here with a basic sample of `docker run` and `podman run` code snippets.
+
+include::{connector-framework-docs-dir}/sections/container/quick-start/connect-to-local-systems.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/container/quick-start/healthcheck.adoc[leveloffset=+2]
+
+include::{connector-framework-docs-dir}/sections/container/configuration/how-to.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/container/configuration/ports.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/container/configuration/volumes/volumes.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/container/configuration/jvm.adoc[leveloffset=+1]
+
+include::{connector-framework-docs-dir}/sections/general/etc/support-contact.adoc[leveloffset=+1]
+
+== License
+
+This project is licensed under the Apache License, Version 2.0. - See the `LICENSE` file under the container's `/licenses` for details.

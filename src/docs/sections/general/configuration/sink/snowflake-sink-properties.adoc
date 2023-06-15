@@ -1,0 +1,183 @@
+include::../../../snippets/attributes/common.adoc
+
+= Snowflake Sink Common Configuration Options
+
+These configuration options are all prefixed by `snowflake.`:
+
+[cols="2m,1m,1m,1m,2", options="header"]
+|===
+| Config Option
+| Type
+| Valid Values
+| Default Value
+| Description
+
+| name
+| string
+|
+| JSON_CONNECTOR
+| the name of the connector
+
+| redirectOnFailEnable
+| string
+| true or false
+| true
+| enable or disable the message redirect to other topic on error
+
+| redirectPrefix
+| string
+|
+| RD/
+| the topic prefix if message was redirected
+
+| database
+| string
+|
+|
+| the snowflake database
+
+| schema
+| string
+|
+|
+| the snowflake schema
+
+| warehouse
+| string
+|
+|
+| the snowflake warehouse
+
+| protocol
+| string
+| http or https
+| https
+| the snowflake protocol
+
+| username
+| string
+|
+|
+| the snowflake username
+
+| port
+| string
+|
+| 443
+| the snowflake port
+
+
+| account
+| string
+|
+|
+| the snowflake account
+
+| snHost
+| string
+|
+|
+| the snowflake host
+
+| topicMap
+| string
+| <topic>:<snowflake_table>,<topic2>:<snowflake_table2>,...
+|
+| the snowflake warehouse
+
+| key
+| string
+|
+|
+| the snowflake key
+
+|===
+
+= Snowflake Sink Jdbc Configuration Options
+
+These configuration options are all prefixed by `snowflake.`:
+
+[cols="2m,1m,1m,1m,2", options="header"]
+|===
+| Config Option
+| Type
+| Valid Values
+| Default Value
+| Description
+
+| schemaMapping
+| string
+| true or false
+| false
+| if true, json data will be mapped to table column ;if false, json data will be put into column "RECORD_METADATA", message will be put into column "RECORD_CONTENT"
+
+| stageNamePattern
+| string
+|
+| JSON_CONNECTOR
+| the pattern of the stageName, {TABLE_NAME} and {CONNECTOR_NAME} will be replace with the specific variable
+
+| pipeNamePattern
+| string
+|
+| JSON_CONNECTOR
+| the pattern of the pipeName, {TABLE_NAME} and {CONNECTOR_NAME} will be replace with the specific variable
+
+| bufferEvents
+| long
+|
+| 1000
+| the max number of message which the connector holds in buffer
+
+| bufferEventSizeLimit
+| long
+|
+| 10240
+| the max byte size of messages which the connector holds in buffer
+
+| bufferEventWaitTime
+| long
+|
+| 1800
+| the max time before buffer flush, if buffer not full, in second
+
+| stageCleanFrequency
+| long
+|
+| 120
+| interval seconds the connector check and purge the ingested file
+
+|===
+
+= Snowflake Sink Stream Configuration Options
+
+These configuration options are all prefixed by `snowflake.`:
+
+[cols="2m,1m,1m,1m,2", options="header"]
+|===
+| Config Option
+| Type
+| Valid Values
+| Default Value
+| Description
+
+| role
+| string
+|
+| JSON_CONNECTOR
+| the account role of snowflake
+
+| onError
+| string
+| continue or abort
+| continue
+| the action when error occurred during data insert period, continue or abort and exit
+
+| ackInterval
+| long
+|
+| 10
+| the interval of ack check,in seconds
+
+
+|===
