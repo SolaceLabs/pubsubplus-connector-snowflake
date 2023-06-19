@@ -179,13 +179,13 @@
 		<dependency>
 			<groupId>com.solacecoe.spring.cloud.stream.binders</groupId>
 			<artifactId>spring-cloud-stream-binder-snowflake-jdbc</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.solacecoe.spring.cloud.stream.binders</groupId>
 			<artifactId>spring-cloud-stream-binder-snowflake-stream</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.ulisesbocchio</groupId>
